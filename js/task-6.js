@@ -14,15 +14,17 @@ document.addEventListener('DOMContentLoaded', function () {
     const amount = parseInt(input.value);
 
     if (amount > 0 && amount <= 100) {
+      destroyBoxes();
       createBoxes(amount);
       input.value = '';
     }
   });
 
-  destroyBtn.addEventListener('click', destroyBoxes);
+  destroyBtn.addEventListener('click', () => { destroyBoxes() });
 
   function createBoxes(amount) {
     const baseSize = 30;
+    const fragment = document.createDocumentFragment();
 
     for (let i = 0; i < amount; i++) {
       const size = baseSize + i * 10;
@@ -30,8 +32,10 @@ document.addEventListener('DOMContentLoaded', function () {
       box.style.width = `${size}px`;
       box.style.height = `${size}px`;
       box.style.backgroundColor = getRandomHexColor();
-      boxesContainer.appendChild(box);
+      fragment.appendChild(box); 
     }
+
+    boxesContainer.appendChild(fragment); 
   }
 
   function destroyBoxes() {
